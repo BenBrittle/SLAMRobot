@@ -15,4 +15,4 @@ with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s:
             if not data:
                 break
             conn.sendall(data)
-sys.stdout.write('done')
+print('done')
