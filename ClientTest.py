@@ -9,23 +9,26 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # connecting to server
 s.connect((HOST, PORT))
 print('connected')
 
-wheelSpeeds = (1.5, 1.5)
+wheelSpeeds = [1.5, 1.5]
 keysPressed = [False, False, False, False]
+oldKeysPressed = keysPressed
 
 
 def sendData(values):  # function to send data without interrupting other code
-    s.sendall(values)
+    values = str(values)
+    s.sendall(values.encode())
     data = s.recv(1024)  # checking to see if data gets received
     print(f'Received {data!r}')
 
 
 Done = True
 
+
 while Done == True:
 
     if keys.is_pressed('esc'):
         break
-    oldKeysPressed = keysPressed  # this is to see if the keys have changed
+
     if keys.is_pressed('up'):
         keysPressed[0] = True
     else:
@@ -45,27 +48,27 @@ while Done == True:
         keysPressed[3] = True
     else:
         keysPressed[3] = False
-    print(keysPressed, oldKeysPressed)
     if oldKeysPressed != keysPressed:
         print('test')
         if keysPressed[0]:
             if keysPressed[1]:
-                wheelSpeeds = (1.75, 2)  # if forwards and left are pressed# then go full speed on the right
+                wheelSpeeds = [1.75, 2]  # if forwards and left are pressed# then go full speed on the right
                 # and half speed on the left
             elif keysPressed[2]:
-                wheelSpeeds = (2, 1.75)
+                wheelSpeeds = [2, 1.75]
             else:
-                wheelSpeeds = (2, 2)
+                wheelSpeeds = [2, 2]
 
         elif keysPressed[1]:
-            wheelSpeeds = (1.25, 1.75)
+            wheelSpeeds = [1.25, 1.75]
         elif keysPressed[2]:
-            wheelSpeeds = (1.75, 1.25)
+            wheelSpeeds = [1.75, 1.25]
         elif keysPressed[3]:
-            wheelSpeeds = (1, 1)
+            wheelSpeeds = [1, 1]
         else:
-            wheelSpeeds = (1.5, 1.5)
+            wheelSpeeds = [1.5, 1.5]
 
         wheelSpeedData = threading.Thread(target=sendData(wheelSpeeds), daemon=True)
+    oldKeysPressed = [keysPressed[0], keysPressed[1], keysPressed[2], keysPressed[3]]  # this is to see if the keys have changed
 
 s.shutdown(socket.SHUT_RDWR)
