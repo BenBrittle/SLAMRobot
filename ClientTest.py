@@ -66,7 +66,7 @@ while Done == True:
         elif keysPressed[3]:
             wheelSpeeds = [5, 5]
         else:
-            wheelSpeeds = [7.5, 7.5]
+            wheelSpeeds = [7, 7]
 
         wheelSpeedData = threading.Thread(target=sendData(wheelSpeeds), daemon=True)
     oldKeysPressed = [keysPressed[0], keysPressed[1], keysPressed[2], keysPressed[3]]  # this is to see if the keys have changed
