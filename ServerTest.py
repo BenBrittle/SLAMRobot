@@ -5,12 +5,15 @@ HOST = '0.0.0.0'
 PORT = 3450
 
 # GPIO setup
-leftPWM = GPIO.PWM(1, 50)
-leftPWM.start(7.5)
-rightPWM = GPIO.PWM(26, 50)
-rightPWM.start(7.5)
+GPIO.setmode(GPIO.BOARD)
+leftPWM = GPIO.PWM(12, 50)
+leftPWM.start(7.2)
+rightPWM = GPIO.PWM(32, 50)
+rightPWM.start(7.2)
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+
+    # start listening on network
     s.bind((HOST, PORT))
     s.listen()
     conn, addr = s.accept()
@@ -21,5 +24,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print(data.decode())
             if not data:
                 break
+            leftPWM.ChangeDutyCycle(data.decode()[0])
+            rightPWM.ChangeDutyCycle(data.decode()[1])
             conn.sendall(data)
 print('done')
