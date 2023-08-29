@@ -2,7 +2,7 @@ import socket
 import threading
 import keyboard as keys
 
-HOST = '127.0.0.1'
+HOST = '192.168.1.88'
 PORT = 3450
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # connecting to server
