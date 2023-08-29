@@ -26,7 +26,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print(data.decode())
             if not data:
                 break
-            leftPWM.ChangeDutyCycle(data.decode()[0])
-            rightPWM.ChangeDutyCycle(data.decode()[1])
+            leftPWM.ChangeDutyCycle(int(data.decode()[0]))
+            rightPWM.ChangeDutyCycle(int(data.decode()[1]))
             conn.sendall(data)
 print('done')
