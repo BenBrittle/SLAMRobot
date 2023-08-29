@@ -22,11 +22,13 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     with conn:
         print(conn, addr)
         while True:
-            data = conn.recv(1024)
-            print(data.decode())
+            data = conn.recv(10)
+            data = data.decode()
+            data = eval(data)
+            print(data.decode()[0])
             if not data:
                 break
-            leftPWM.ChangeDutyCycle(float(data.decode()[0]))
-            rightPWM.ChangeDutyCycle(float(data.decode()[1]))
+            leftPWM.ChangeDutyCycle(float(data[0]))
+            rightPWM.ChangeDutyCycle(float(data[1]))
             conn.sendall(data)
 print('done')
