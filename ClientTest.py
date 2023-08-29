@@ -52,21 +52,21 @@ while Done == True:
         print('test')
         if keysPressed[0]:
             if keysPressed[1]:
-                wheelSpeeds = [1.75, 2]  # if forwards and left are pressed# then go full speed on the right
+                wheelSpeeds = [8.75, 10]  # if forwards and left are pressed# then go full speed on the right
                 # and half speed on the left
             elif keysPressed[2]:
-                wheelSpeeds = [2, 1.75]
+                wheelSpeeds = [10, 8.75]
             else:
-                wheelSpeeds = [2, 2]
+                wheelSpeeds = [10, 10]
 
         elif keysPressed[1]:
-            wheelSpeeds = [1.25, 1.75]
+            wheelSpeeds = [8.25, 8.75]
         elif keysPressed[2]:
-            wheelSpeeds = [1.75, 1.25]
+            wheelSpeeds = [8.75, 6.25]
         elif keysPressed[3]:
-            wheelSpeeds = [1, 1]
+            wheelSpeeds = [5, 5]
         else:
-            wheelSpeeds = [1.5, 1.5]
+            wheelSpeeds = [7.5, 7.5]
 
         wheelSpeedData = threading.Thread(target=sendData(wheelSpeeds), daemon=True)
     oldKeysPressed = [keysPressed[0], keysPressed[1], keysPressed[2], keysPressed[3]]  # this is to see if the keys have changed

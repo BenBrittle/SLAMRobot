@@ -1,8 +1,14 @@
 import socket
-import sys
+import RPi.GPIO as GPIO
 
 HOST = '0.0.0.0'
 PORT = 3450
+
+# GPIO setup
+leftPWM = GPIO.PWM(1, 50)
+leftPWM.start(7.5)
+rightPWM = GPIO.PWM(26, 50)
+rightPWM.start(7.5)
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
