@@ -5,6 +5,8 @@ HOST = '0.0.0.0'
 PORT = 3450
 
 # GPIO setup
+GPIO.setup(12, GPIO.OUT)
+GPIO.setup(32, GPIO.OUT)
 leftPWM = GPIO.PWM(1, 50)
 leftPWM.start(7.5)
 rightPWM = GPIO.PWM(26, 50)
