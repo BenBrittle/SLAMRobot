@@ -6,6 +6,8 @@ PORT = 3450
 
 # GPIO setup
 GPIO.setmode(GPIO.BOARD)
+GPIO.setup(12, GPIO.OUT)
+GPIO.setup(32, GPIO.OUT)
 leftPWM = GPIO.PWM(12, 50)
 leftPWM.start(7.2)
 rightPWM = GPIO.PWM(32, 50)
