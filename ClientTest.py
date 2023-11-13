@@ -1,6 +1,9 @@
 import socket
 import threading
+
+import keyboard
 import keyboard as keys
+import time
 
 HOST = '192.168.1.88'
 PORT = 3450
@@ -25,50 +28,51 @@ Done = True
 
 
 while Done == True:
+    key = False
+    key = keyboard.read_key()
 
-    if keys.is_pressed('esc'):
+    if key == 'esc':
         break
 
-    if keys.is_pressed('up'):
+    if key == 'up':
         keysPressed[0] = True
     else:
         keysPressed[0] = False
 
-    if keys.is_pressed('left'):
+    if key == 'left':
         keysPressed[1] = True
     else:
         keysPressed[1] = False
 
-    if keys.is_pressed('right'):
+    if key == 'right':
         keysPressed[2] = True
     else:
         keysPressed[2] = False
 
-    if keys.is_pressed('down'):
+    if key == 'down':
         keysPressed[3] = True
     else:
         keysPressed[3] = False
     if oldKeysPressed != keysPressed:
-        print('test')
         if keysPressed[0]:
             if keysPressed[1]:
-                wheelSpeeds = [8.75, 10]  # if forwards and left are pressed# then go full speed on the right
+                wheelSpeeds = [8.25, 5]  # if forwards and left are pressed# then go full speed on the right
                 # and half speed on the left
             elif keysPressed[2]:
-                wheelSpeeds = [10, 8.75]
+                wheelSpeeds = [10, 6.25]
             else:
-                wheelSpeeds = [10, 10]
+                wheelSpeeds = [10, 5]
 
         elif keysPressed[1]:
-            wheelSpeeds = [8.25, 8.75]
+            wheelSpeeds = [6.25, 6.25]
         elif keysPressed[2]:
-            wheelSpeeds = [8.75, 6.25]
+            wheelSpeeds = [8.75, 8.75]
         elif keysPressed[3]:
-            wheelSpeeds = [5, 5]
+            wheelSpeeds = [5, 10]
         else:
             wheelSpeeds = [7, 7]
 
-        wheelSpeedData = threading.Thread(target=sendData(wheelSpeeds), daemon=True)
+        socketCon = threading.Thread(sendData(wheelSpeeds))
     oldKeysPressed = [keysPressed[0], keysPressed[1], keysPressed[2], keysPressed[3]]  # this is to see if the keys have changed
 
 s.shutdown(socket.SHUT_RDWR)

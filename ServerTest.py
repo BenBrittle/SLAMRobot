@@ -25,10 +25,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             data = conn.recv(20)
             conn.sendall(data)
             data = data.decode()
-            data = eval(data)
-            print(data[0])
             if not data:
                 break
+            data = eval(data)
+            print(data[0])
             leftPWM.ChangeDutyCycle(float(data[0]))
             rightPWM.ChangeDutyCycle(float(data[1]))
 print('done')
