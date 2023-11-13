@@ -1,7 +1,5 @@
 import socket
 import threading
-
-import keyboard
 import keyboard as keys
 import time
 
@@ -28,28 +26,26 @@ Done = True
 
 
 while Done == True:
-    key = False
-    key = keyboard.read_key()
 
-    if key == 'esc':
+    if keys.is_pressed('esc'):
         break
 
-    if key == 'up':
+    if keys.is_pressed('up'):
         keysPressed[0] = True
     else:
         keysPressed[0] = False
 
-    if key == 'left':
+    if keys.is_pressed('left'):
         keysPressed[1] = True
     else:
         keysPressed[1] = False
 
-    if key == 'right':
+    if keys.is_pressed('right'):
         keysPressed[2] = True
     else:
         keysPressed[2] = False
 
-    if key == 'down':
+    if keys.is_pressed('down'):
         keysPressed[3] = True
     else:
         keysPressed[3] = False
@@ -61,18 +57,18 @@ while Done == True:
             elif keysPressed[2]:
                 wheelSpeeds = [10, 6.25]
             else:
-                wheelSpeeds = [10, 5]
+                wheelSpeeds = [8.25, 6.25]
 
         elif keysPressed[1]:
             wheelSpeeds = [6.25, 6.25]
         elif keysPressed[2]:
             wheelSpeeds = [8.75, 8.75]
         elif keysPressed[3]:
-            wheelSpeeds = [5, 10]
+            wheelSpeeds = [6.25, 8.25]
         else:
             wheelSpeeds = [7, 7]
 
-        socketCon = threading.Thread(sendData(wheelSpeeds))
+        SocketCon = threading.Thread(sendData(wheelSpeeds))
     oldKeysPressed = [keysPressed[0], keysPressed[1], keysPressed[2], keysPressed[3]]  # this is to see if the keys have changed
 
 s.shutdown(socket.SHUT_RDWR)
