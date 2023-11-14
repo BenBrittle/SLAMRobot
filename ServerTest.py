@@ -15,7 +15,7 @@ rightPWM.start(7.2)
 
 while True:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         # start listening on network
         s.bind((HOST, PORT))
         s.listen()
@@ -32,4 +32,5 @@ while True:
                 print(data[0])
                 leftPWM.ChangeDutyCycle(float(data[0]))
                 rightPWM.ChangeDutyCycle(float(data[1]))
+
     print('disconected')

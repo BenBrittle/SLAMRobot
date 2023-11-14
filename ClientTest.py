@@ -21,7 +21,6 @@ def sendData(values):  # function to send data without interrupting other code
     data = s.recv(1024)  # checking to see if data gets received
     print(f'Received {data!r}')
 
-
 Done = True
 
 
