@@ -27,7 +27,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             data = data.decode()
             if not data:
                 break
-            data = eval(data)
+            try:
+                data = eval(data)
+            except:
+                break
             print(data[0])
             leftPWM.ChangeDutyCycle(float(data[0]))
             rightPWM.ChangeDutyCycle(float(data[1]))
