@@ -13,26 +13,23 @@ leftPWM.start(7.2)
 rightPWM = GPIO.PWM(32, 50)
 rightPWM.start(7.2)
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+while True:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
-    # start listening on network
-    s.bind((HOST, PORT))
-    s.listen()
-    conn, addr = s.accept()
-    with conn:
-        print(conn, addr)
-        while True:
-            data = conn.recv(20)
-            conn.sendall(data)
-            data = data.decode()
-            if not data:
-                break
-            try:
+        # start listening on network
+        s.bind((HOST, PORT))
+        s.listen()
+        conn, addr = s.accept()
+        with conn:
+            print(conn, addr)
+            while True:
+                data = conn.recv(20)
+                conn.sendall(data)
+                data = data.decode()
+                if not data:
+                    break
                 data = eval(data)
-            except:
-                print('error')
-                break
-            print(data[0])
-            leftPWM.ChangeDutyCycle(float(data[0]))
-            rightPWM.ChangeDutyCycle(float(data[1]))
-print('done')
+                print(data[0])
+                leftPWM.ChangeDutyCycle(float(data[0]))
+                rightPWM.ChangeDutyCycle(float(data[1]))
+    print('disconected')
