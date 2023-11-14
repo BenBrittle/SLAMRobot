@@ -49,14 +49,15 @@ while Done == True:
     else:
         keysPressed[3] = False
     if oldKeysPressed != keysPressed:
+        start = time.time()
         if keysPressed[0]:
             if keysPressed[1]:
-                wheelSpeeds = [8, 6]  # if forwards and left are pressed# then go full speed on the right
+                wheelSpeeds = [8, 5.5]  # if forwards and left are pressed# then go full speed on the right
                 # and half speed on the left
             elif keysPressed[2]:
-                wheelSpeeds = [10, 6.25]
+                wheelSpeeds = [8.5, 6]
             else:
-                wheelSpeeds = [8.25, 6.25]
+                wheelSpeeds = [8, 6]
 
         elif keysPressed[1]:
             wheelSpeeds = [6.25, 6.25]
@@ -68,6 +69,7 @@ while Done == True:
             wheelSpeeds = [7, 7]
 
         SocketCon = threading.Thread(sendData(wheelSpeeds))
+    time.sleep(0.1)
     oldKeysPressed = [keysPressed[0], keysPressed[1], keysPressed[2], keysPressed[3]]  # this is to see if the keys have changed
 
 s.shutdown(socket.SHUT_RDWR)
