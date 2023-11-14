@@ -52,7 +52,7 @@ while Done == True:
     if oldKeysPressed != keysPressed:
         if keysPressed[0]:
             if keysPressed[1]:
-                wheelSpeeds = [8.25, 5]  # if forwards and left are pressed# then go full speed on the right
+                wheelSpeeds = [8, 6]  # if forwards and left are pressed# then go full speed on the right
                 # and half speed on the left
             elif keysPressed[2]:
                 wheelSpeeds = [10, 6.25]

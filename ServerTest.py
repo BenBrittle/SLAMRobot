@@ -30,6 +30,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             try:
                 data = eval(data)
             except:
+                print('error')
                 break
             print(data[0])
             leftPWM.ChangeDutyCycle(float(data[0]))
